@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
 
-const url = process.env.URLm || "mongodb://localhost:27017/note";
+const url = process.env.URL || "mongodb://localhost:27017/note";
 
 mongoose
   .connect(url, {
