@@ -118,6 +118,36 @@ class userController {
       next(error);
     }
   };
+
+  static update = async (req, res, next) => {
+    try {
+      const { id, fullName, age, website, intro } = req.body;
+
+      const currentUser = await user.findOne({ _id: id });
+      const update = await user.updateOne(
+        { _id: id },
+        {
+          $set: {
+            fullName: fullName,
+            age: age,
+            website: website,
+            intro: intro,
+          },
+        },
+        function (err, res) {
+          if (err) {
+            throw err;
+          }
+          console.log("1 doc updated", res);
+          res.status(200).json({
+            data: update,
+          });
+        }
+      );
+    } catch (error) {
+      next(error);
+    }
+  };
 }
 
 module.exports = userController;
