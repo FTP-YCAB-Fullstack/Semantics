@@ -10,11 +10,16 @@ const errorHandler = (error, req, res, next) => {
       message = error.message;
       break;
 
+    case "UserIsNotFound":
+      code = 404;
+      message = error.message;
+      break;
+
     default:
       break;
   }
 
-  res.status(code || 500).send({
+  res.status(code || 500).json({
     message: message || "Internal Error",
   });
 };
