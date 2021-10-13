@@ -32,3 +32,5 @@ const UserSchema = new mongoose.Schema(
 const model = mongoose.model("user", UserSchema);
 
 module.exports = model;
+
+//db.inventory.insertOne({"item":"postcard", "size.h": 10},{size: {tinggi: 199})
