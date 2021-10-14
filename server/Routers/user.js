@@ -3,7 +3,7 @@
 const multer = require("multer");
 const path = require("path");
 const user = require("express").Router();
-const userController = require("../controllers/userController");
+const userController = require("../controllers/user");
 
 const auth = require("../middlewares/authentication");
 
