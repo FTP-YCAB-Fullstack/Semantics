@@ -5,6 +5,8 @@ const path = require("path");
 const user = require("express").Router();
 const userController = require("../controllers/userController");
 
+const auth = require("../middlewares/authentication");
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, `./public/upload`);
@@ -30,9 +32,8 @@ const upload = multer({
 
 user.post("/users/register", userController.reg);
 user.post("/users/login", userController.log);
-user.patch("/users/update", userController.update);
+user.post("/users/update", auth, userController.update);
 user.patch("/users/upload", upload.single("picture"), (req, res) => {
-  console.log("ini routing");
   let finalUrlImage = "http://localhost:8888" + "/upload/" + req.file.filename;
 
   res.status(200).json({

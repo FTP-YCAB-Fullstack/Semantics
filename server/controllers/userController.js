@@ -82,14 +82,12 @@ class userController {
 
       const jwtPayload = {
         id: data._id,
-        username: data.userName,
       };
 
       const token = jwt.sign(jwtPayload, process.env.SECREAT_KEY);
 
       res.status(200).json({
         token: token,
-        data,
       });
     } catch (error) {
       next(error);
@@ -121,29 +119,19 @@ class userController {
 
   static update = async (req, res, next) => {
     try {
-      const { id, fullName, age, website, intro } = req.body;
+      console.log("masuk update controller");
+      const currentUser = req.currentUser;
+      const { fullName, age, website, intro } = req.body;
 
-      const currentUser = await user.findOne({ _id: id });
-      const update = await user.updateOne(
-        { _id: id },
-        {
-          $set: {
-            fullName: fullName,
-            age: age,
-            website: website,
-            intro: intro,
-          },
-        },
-        function (err, res) {
-          if (err) {
-            throw err;
-          }
-          console.log("1 doc updated", res);
-          res.status(200).json({
-            data: update,
-          });
-        }
-      );
+      const user = await user.findOne({ _id: currentUser._id });
+      console.log("kecari ga??");
+
+      if (!user) {
+        next({ code: 404, message: "User not found" });
+        return;
+      }
+
+      console.log("berhasil masuk sini");
     } catch (error) {
       next(error);
     }
