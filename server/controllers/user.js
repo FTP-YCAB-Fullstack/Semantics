@@ -98,7 +98,6 @@ class userController {
     try {
       const { token } = req.body;
       const data = jwt.verify(token, process.env.SECREAT_KEY);
-      console.log(data);
       const user = await user.findOne({ _id: data.id });
 
       if (!user) {
@@ -119,19 +118,15 @@ class userController {
 
   static update = async (req, res, next) => {
     try {
-      console.log("masuk update controller");
       const currentUser = req.currentUser;
       const { fullName, age, website, intro } = req.body;
 
       const user = await user.findOne({ _id: currentUser._id });
-      console.log("kecari ga??");
 
       if (!user) {
         next({ code: 404, message: "User not found" });
         return;
       }
-
-      console.log("berhasil masuk sini");
     } catch (error) {
       next(error);
     }
