@@ -3,24 +3,27 @@
 const userModel = require("../models/user");
 
 class activity {
-  static subject = async (req, res, next) => {
+  //subject
+  static subjectAdd = async (req, res, next) => {
     try {
       const currentUser = req.currentUser;
-      const subject = req.body;
+      const data = req.body;
 
-      const user = await userModel.findOne({ userName: currentUser.userName });
+      const user = await userModel.findOne({ _id: currentUser._id });
 
       if (!user) {
         next({ code: 404, message: "User Not Found" });
         return;
       }
 
+      const lastdata = [...user.activity.subject];
+
       const update = await userModel.updateOne(
-        { userName: currentUser.userName },
-        { $set: { "activity.subject": subject } }
+        { _id: user._id },
+        { $set: { "activity.subject": [...user.activity.subject, data] } }
       );
 
-      res.status(200).json({ update });
+      res.status(200).json({ message: "created" });
     } catch (error) {
       next(error);
     }
