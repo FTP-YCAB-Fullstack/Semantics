@@ -5,8 +5,9 @@ const activityController = require("../controllers/activity");
 const auth = require("../middlewares/authentication");
 
 //subject
-activity.patch("/subject", auth, activityController.subjectAdd);
+activity.post("/subject", auth, activityController.subjectAdd);
 activity.get("/subject", auth, activityController.subjectGet);
+activity.post("/subject", auth, activityController.subjectChange);
 
 activity.post("/upcomingexam", auth, activityController.upcomingexam);
 activity.post("/seminar", auth, activityController.seminar);

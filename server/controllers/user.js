@@ -88,6 +88,7 @@ class userController {
 
       res.status(200).json({
         token: token,
+        activity: data.activity,
       });
     } catch (error) {
       next(error);

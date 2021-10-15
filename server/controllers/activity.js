@@ -46,6 +46,45 @@ class activity {
     }
   };
 
+  static subjectChange = async (req, res, next) => {
+    try {
+      const currentUser = req.currentUser;
+      const data = req.body;
+
+      const user = userModel.findOne({ _id: currentUser._id });
+      if (!user) {
+        next({ code: 404, message: "User Not Found" });
+        return;
+      }
+
+      let update = [];
+      user.activity.subject.map((sub) =>
+        sub.id === data.id ? [...update, data] : [...update, sub]
+      );
+
+      const newSubject = await userModel.findOne(
+        { _id: currentUser._id },
+        {
+          $set: { "activity.subject": update },
+        }
+      );
+
+      res.status(200).json({
+        subject: update,
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  static subjectDelete = async (req, res, next) => {
+    try {
+      const currentUser = req.currentUser;
+    } catch (error) {
+      next(error);
+    }
+  };
+
   static upcomingexam = async (req, res, next) => {
     try {
       const currentUser = req.currentUser;
