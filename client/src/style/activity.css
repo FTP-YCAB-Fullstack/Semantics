@@ -1,0 +1,143 @@
+/* body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+} */
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dark-mode {
+  background-color: black;
+}
+
+.dark-mode h1 {
+  color: white;
+}
+
+.container {
+  max-width: auto;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 15px;
+  padding-left: 15px;
+  min-height: 100%;
+}
+
+.notes-list {
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+}
+
+.note.new {
+  background-color: #67d7cc;
+  height: 50%;
+}
+
+textarea {
+  border: none;
+  resize: none;
+  background-color: #67d7cc;
+}
+
+textarea:focus {
+  outline: none;
+}
+
+.save {
+  background-color: #e1e1e1;
+}
+
+.save:hover {
+  background-color: #ededed;
+  cursor: pointer;
+}
+
+.note {
+  background-color: #fcfafb;
+  border-radius: 10px;
+  padding: 1rem;
+  min-height: 230px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  white-space: pre-wrap;
+}
+
+.note-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.delete-icon,
+.edit-icon {
+  cursor: pointer;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  padding: 5px;
+  margin-bottom: 1.5em;
+}
+
+.search input {
+  border: none;
+  width: 100%;
+}
+
+.search input:focus {
+  outline: none;
+}
+
+@media screen and (max-width: 768px) {
+  .note.new {
+    background-color: #67d7cc;
+    height: 50%;
+  }
+
+  #text-input {
+    height: auto;
+  }
+
+  #front {
+    padding: 0;
+    border-radius: 20px;
+    height: 50%;
+  }
+
+  #back {
+    padding: 0;
+    border-radius: 20px;
+    height: 50%;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  #front {
+    padding: 0;
+    border-radius: 20px;
+    height: 95%;
+  }
+
+  #back {
+    padding: 0;
+    border-radius: 20px;
+    height: 95%;
+  }
+}
