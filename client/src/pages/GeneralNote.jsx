@@ -4,6 +4,8 @@ import uuid from "react-uuid";
 import "../style/generalnote.css";
 import Main from "../component/generalnote/Main";
 import Sidebar from "../component/generalnote/Sidebar";
+import ButtonActiveGN from "../component/navbar/ButtonActiveGN";
+import MobileNavbar from "../component/navbar/mobile/MobileNavbar";
 
 function App() {
   const [notes, setNotes] = useState(
@@ -48,6 +50,15 @@ function App() {
 
   return (
     <div className="md:flex md:flex-row md:max-h-screen">
+      <div className="md:hidden h-[150px] absolute flex justify-end inset-0 transition ease-in-out duration-300 mt-4 mr-2">
+        <ButtonActiveGN
+          notes={notes}
+          onAddNote={onAddNote}
+          onDeleteNote={onDeleteNote}
+          activeNote={activeNote}
+          setActiveNote={setActiveNote}
+        />
+      </div>
       <div className="hidden left md:block md:w-1/4">
         <Sidebar
           notes={notes}
@@ -59,6 +70,9 @@ function App() {
       </div>
       <div className="w-full right md:w-full md:mx-8 md:my-5 md:flex-1">
         <Main activeNote={getActiveNote()} onUpdateNote={onUpdateNote} />
+      </div>
+      <div className="mobileNav">
+        <MobileNavbar />
       </div>
     </div>
   );

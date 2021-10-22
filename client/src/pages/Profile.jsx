@@ -1,70 +1,106 @@
 import React, { useState, useEffect } from "react";
-import FormUpdate from "../component/form/FormUpdate";
+import FormUser from "../component/form/FormUser";
+import MobileNavbar from "../component/navbar/mobile/MobileNavbar";
+import { Link } from "react-router-dom";
+import { BsBackspaceFill } from "react-icons/bs";
 
 function Profile() {
-  const [image, setImage] = useState("https://fakeimg.pl/350x300/");
   // const [saveImage, setSaveImage] = useState(null);
   const [dataUser, setDataUser] = useState({});
-  const [img, setImg] = useState("");
-  const [currentPicture, setCurrentPicture] = useState("");
   const [status, setStatus] = useState(false);
-  const [modalIsOpen, setIsOpen] = React.useState(false);
+  const [modal, setModal] = useState("hidden");
   // const token = localStorage.getItem("token");
+
+  const openModal = () => {
+    setModal("block");
+  };
+
+  const closeModalUser = () => {
+    setModal("hidden");
+  };
 
   useEffect(() => {
     if (status) {
-      setDataUser(JSON.parse(localStorage.getItem("userinfo")));
-      setCurrentPicture(JSON.parse(localStorage.getItem("img")));
-
-      setImg(JSON.parse(localStorage.getItem("img")));
+      setDataUser(JSON.parse(localStorage.getItem("Userinfo")));
       setStatus(false);
     }
-  }, [status]);
+  }, [status, dataUser]);
 
   useEffect(() => {
-    setDataUser(JSON.parse(localStorage.getItem("userinfo")));
-    setImg(JSON.parse(localStorage.getItem("img")));
+    setDataUser(JSON.parse(localStorage.getItem("Userinfo")));
   }, []);
 
+  // https://source.unsplash.com/random/350x350
   return (
-    <div className="md:w-screen md:h-screen">
-      <div>
-        <div className="overflow-y-auto grid grid-cols-1 md:grid-cols-2 h-screen">
-          <div className="md:max-h-96 md:h-screen">
-            <img
-              className="bg-auto bg-no-repeat bg-center h-full md:w-screen md:h-screen object-cover object-top"
-              src="https://images.pexels.com/photos/270373/pexels-photo-270373.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-              alt="gambar"
-            />
-          </div>
-          <div className="flex bg-gray-100 md:p-10 md:w-full lg:w-full md:flex-1 lg:flex-1 ">
-            <div className="p-3 bg-white shadow-lg rounded-lg my-20">
-              <div className="flex justify-center md:justify-end -mt-16">
-                <img
-                  className="w-24 h-24 object-cover rounded-full border-2 border-indigo-500"
-                  src={img !== currentPicture ? img : currentPicture || image}
-                  alt="profile"
-                />
-              </div>
-              <div className="md:flex md:flex-col md:justify-between">
-                <h2 className="text-xl pt-3 text-gray-800 md:text-3xl font-semibold">
-                  {dataUser ? dataUser.fullName : "User"}
-                </h2>
-                <p className="my-5 overflow-auto md:my-8 text-gray-600">
-                  {dataUser
+    <div className="bg-gradient-to-r from-green-400 to-blue-500">
+      <Link to="/dashboard">
+        <BsBackspaceFill
+          className="hidden md:block my-3 mx-5 text-black hover:cursor-pointer"
+          size="1.8rem"
+        />
+      </Link>
+      <section className="justify-center md:mt-32 bg-transparent dark:bg-gray-800">
+        <div className="container px-6 py-6 mx-auto ">
+          <div className="items-center lg:flex ">
+            <div className="lg:w-1/2 relative px-4 py-5 shadow-lg sm:rounded-3xl sm:p-20 bg-clip-padding border border-gray-200">
+              <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100">
+                Who I am
+              </h2>
+              <p className="mt-4 text-gray-500 dark:text-gray-400 lg:max-w-md">
+                <span className="font-bold text-black">
+                  {dataUser !== {} ? dataUser.fullName : "Human"} ~
+                </span>
+                <span className="font-semibold text-black">
+                  {dataUser !== {} ? dataUser.age : "Age"}
+                </span>
+                .
+                <p className="text-black">
+                  {dataUser !== {}
                     ? dataUser.intro
-                    : `Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae
-                  dolores deserunt ea doloremque natus error, rerum quas odio
-                  quaerat nam ex commodi hic, suscipit in a veritatis pariatur
-                  minus consequuntur!`}
+                    : `Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                  Error a reprehenderit molestiae, debitis exercitationem ad
+                  nulla consectetur minima deserunt est harum totam unde, quidem
+                  facilis modi doloribus quas. Nostrum, dolorum porro tenetur,
+                  molestias nisi similique deserunt neque eveniet sunt adipisci
+                  mollitia dolore. Laborum esse amet natus id! Possimus, quasi
+                  adipisci.`}
                 </p>
+              </p>
+              <button
+                onClick={openModal}
+                className="font-bold transition ease-in duration-300 bg-gray-500 px-3 py-2 rounded-md hover:bg-black hover:text-white "
+              >
+                Update
+              </button>
+            </div>
+            <div className="mt-8 lg:mt-0 lg:w-1/2">
+              <div className="flex items-center justify-center lg:justify-end">
+                <div className="max-w-lg">
+                  <h3 className="text-2xl font-semibold">Profile Picture</h3>
+                  <img
+                    className="img-form"
+                    src={
+                      dataUser !== {}
+                        ? dataUser.avatar
+                        : "https://source.unsplash.com/random/350x350"
+                    }
+                    alt="..."
+                  />
+                </div>
               </div>
-              <button>Update</button>
             </div>
           </div>
         </div>
+      </section>
+
+      <div
+        className={`${modal} fixed z-10 inset-0 overflow-y-auto transition ease-in-out duration-300 md:h-screen md:w-screen`}
+      >
+        <FormUser closeModalUser={closeModalUser} setStatus={setStatus} />
       </div>
-      <FormUpdate className="absolute" setStatus={setStatus} />
+      <div className="mobileNav">
+        <MobileNavbar />
+      </div>
     </div>
   );
 }

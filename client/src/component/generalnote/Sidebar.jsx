@@ -1,5 +1,7 @@
 import React from "react";
 import { BsTrash } from "react-icons/bs";
+import { Link } from "react-router-dom";
+import { BsBackspaceFill } from "react-icons/bs";
 
 const Sidebar = ({
   notes,
@@ -13,6 +15,12 @@ const Sidebar = ({
   return (
     <div className="md:w-full">
       <div className="app-sidebar-header">
+        <Link to="/dashboard">
+          <BsBackspaceFill
+            className="hidden md:flex justify-center items-center my-3 text-white hover:cursor-pointer"
+            size="1.8rem"
+          />
+        </Link>
         <h4>GENERAL NOTE</h4>
         <button onClick={onAddNote}>
           <svg
@@ -31,7 +39,7 @@ const Sidebar = ({
             className={`app-sidebar-note border-t-2 border-black ${
               id === activeNote && "active"
             }`}
-            key={id}
+            key={i}
             onClick={() => setActiveNote(id)}
           >
             <div className="sidebar-note-title">
