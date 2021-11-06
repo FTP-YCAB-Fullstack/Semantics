@@ -2,7 +2,8 @@
 
 const mongoose = require("mongoose");
 
-const UserSchema = new mongoose.Schema(
+const UserSchema = new mongoose.Schema
+(
   {
     userName: { type: String, required: true },
     email: { type: String, required: true, unique: true },
@@ -18,10 +19,6 @@ const UserSchema = new mongoose.Schema(
     },
     activity: {
       subject: { type: "array" },
-      // upcomingexam: { type: "array" },
-      // seminar: { type: "array" },
-      // workshop: { type: "array" },
-      // competition: { type: "array" },
     },
   },
   {
@@ -32,5 +29,3 @@ const UserSchema = new mongoose.Schema(
 const model = mongoose.model("user", UserSchema);
 
 module.exports = model;
-
-//db.inventory.insertOne({"item":"postcard", "size.h": 10},{size: {tinggi: 199})
